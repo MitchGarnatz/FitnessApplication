@@ -30,8 +30,8 @@ export const InnerContainer = styled(View)`
 `;
 
 export const PageLogo = styled(Image)`
-    width: 275px;
-    height: 150px;
+    width: 300px;
+    height: 200px;
 `;
 
 export const PageTitle = styled(Text)`
@@ -108,7 +108,7 @@ export const ButtonText = styled(Text)`
     font-size: 16px;
 
     ${(props) => props.google == true && `
-        padding: 25px;
+        padding-left: 10px;
     `}
 `;
 
@@ -122,6 +122,30 @@ export const Line = styled(View)`
     width: 100%;
     background-color: ${darkLight};
     margin-vertical: 10px;
-`
+`;
+
+export const ExtraView = styled(View)`
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    padding 10px;
+`;
+
+export const ExtraText = styled(Text)`
+    justify-content: center;
+    align-content: center;
+    color: white;
+    font-size: 15px;
+`;
+
+export const TextLink = styled(TouchableOpacity)`
+    justify-content: center;
+    align-items: center;
+`;
+
+export const TextLinkContent = styled(Text)`
+    color: ${brand};
+    font-size: 15px;
+`;
 
 
