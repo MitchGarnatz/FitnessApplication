@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator, Link } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { useNavigation } from 'expo-router';
+import axios from 'axios';
 import {
     Colors,
     StyledContainer,
@@ -27,24 +28,50 @@ import {
     TextLinkContent
 
 } from './components/styles';
-import { StackRouter } from '@react-navigation/native';
 
 const { brand, darkLight } = Colors;
 
 
 const Login = () => {
+    const [hidePassword, setHidePassword] = useState(true);
+    const [message, setMessage] = useState();
+    const [messageType, setMessageType] = useState();
 
     const navigation = useNavigation();
-
-    const handleLoginButtonClick = () => {
-        navigation.navigate('welcome'); // Navigate to the 'welcome' screen
-    };
 
     const handleSignUpPress = () => {
         navigation.navigate('signup'); // Navigate to the 'welcome' screen
     };
 
-    const [hidePassword, setHidePassword] = useState(true);
+    const handleLogin = (credentials, setSubmitting) => {
+        handleMessage(null);
+        const url = 'https://rocky-mesa-32873-0728902da64a.herokuapp.com/user/signin';
+
+        axios
+        .post(url, credentials)
+        .then((response) => {
+            const result = response.data
+            const {message, status, data} = result;
+
+            if (status !== 'SUCCESS') {
+                handleMessage(message, status);
+                setSubmitting(false);
+            } else {
+                navigation.navigate('welcome', {...data[0]});
+            }
+            setSubmitting(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setSubmitting(false);
+            handleMessage("An error occurred. Check your network and try again");
+        })
+    }
+
+    const handleMessage = (message, type = 'FAILED') => {
+        setMessage(message);
+        setMessageType(type);
+    }
 
     return (
         <KeyboardAvoidingWrapper>
@@ -57,12 +84,16 @@ const Login = () => {
 
                     <Formik
                         initialValues={{email: '', password: ''}} 
-                        onSubmit={(values) => {
-                            console.log(values);
-                            handleLoginButtonClick();
+                        onSubmit={(values, {setSubmitting}) => {
+                            if (values.email == '' || values.password == '') {
+                                handleMessage('Please fill all the fields');
+                                setSubmitting(false);
+                            } else {
+                                handleLogin(values, setSubmitting);
+                            }
                         }}   
                     >   
-                        {({handleChange, handleBlur, handleSubmit, values}) => <StyledFormArea>
+                        {({handleChange, handleBlur, handleSubmit, values, isSubmitting}) => <StyledFormArea>
                                 <MyTextInput
                                     label="Email Address"
                                     icon="mail"
@@ -90,10 +121,15 @@ const Login = () => {
                                     hidePassword={hidePassword}
                                     setHidePassword={setHidePassword}
                                 />
-                                <MsgBox>...</MsgBox>
-                                <StyledButton onPress={handleSubmit}>
+                                <MsgBox type={messageType}>{message}</MsgBox>
+                                {!isSubmitting && <StyledButton onPress={handleSubmit}>
                                     <ButtonText>Login</ButtonText>
-                                </StyledButton>
+                                </StyledButton>}
+
+                                {isSubmitting && <StyledButton disabled={true}>
+                                    <ActivityIndicator size="large" color={'white'} />
+                                </StyledButton>}
+
                                 <Line/>
                                 <StyledButton google={true} onPress={handleSubmit}>
                                     <Fontisto name="google" color={'white'} size={25}/>
@@ -111,6 +147,7 @@ const Login = () => {
                 </InnerContainer>
             </StyledContainer>
         </KeyboardAvoidingWrapper>
+        
     );
 }
 

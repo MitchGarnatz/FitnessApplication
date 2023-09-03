@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { useNavigation } from 'expo-router';
+import axios from 'axios';
 import {
     Colors,
     StyledContainer,
     InnerContainer,
-    PageLogo,
     PageTitle,
     SubTitle,
     StyledFormArea,
@@ -34,16 +34,15 @@ const { brand, darkLight } = Colors;
 const Signup = () => {
 
     const navigation = useNavigation();
+
     const [hidePassword, setHidePassword] = useState(true);
     const [show, setShow] = useState(false);
     const [date, setDate] = useState(new Date(2000, 0, 1));
+    const [message, setMessage] = useState();
+    const [messageType, setMessageType] = useState();
 
     // Actual Date of Birth
     const [dob, setDob] = useState();
-
-    const handleSignUpClick = () => {
-        navigation.navigate('welcome'); // Navigate to the 'welcome' screen
-    };
 
     const handleLoginPress = () => {
         navigation.navigate('login'); // Navigate to the 'welcome' screen
@@ -65,6 +64,36 @@ const Signup = () => {
         console.log("showDatePicker function is triggered");
     }
 
+    const handleSignUp = (credentials, setSubmitting) => {
+        handleMessage(null);
+        const url = 'https://rocky-mesa-32873-0728902da64a.herokuapp.com/user/signup';
+
+        axios
+        .post(url, credentials)
+        .then((response) => {
+            const result = response.data
+            const {message, status, data} = result;
+
+            if (status !== 'SUCCESS') {
+                handleMessage(message, status);
+                setSubmitting(false);
+            } else {
+                navigation.navigate('welcome', {...data});
+            }
+            setSubmitting(false);
+        })
+        .catch(error => {
+            console.log(error);
+            setSubmitting(false);
+            handleMessage("An error occurred. Check your network and try again");
+        })
+    }
+
+    const handleMessage = (message, type = 'FAILED') => {
+        setMessage(message);
+        setMessageType(type);
+    }
+
     return (
         <KeyboardAvoidingWrapper>
             <StyledContainer>
@@ -75,29 +104,42 @@ const Signup = () => {
 
                     <Formik
                         initialValues={{
-                            fullName: '', 
+                            name: '', 
                             email: '', 
                             password: '',
-                            confirmPassword: ''
+                            confirmPassword: '',
+                            dateOfBirth: ''
                         }} 
-                        onSubmit={(values) => {
-                            console.log('Submitted values:', {
-                                ...values,
-                                dateOfBirth: dob ? dob : new Date()
-                            });
-                            handleSignUpClick();
+                        onSubmit={(values, {setSubmitting}) => {
+                            values = {...values, dateOfBirth: dob};
+                            if (
+                                values.email == '' ||
+                                values.password == '' ||
+                                values.name == '' ||
+                                values.dateOfBirth == '' ||
+                                values.confirmPassword == ''
+                            ) {
+                                handleMessage('Please fill all the fields');
+                                setSubmitting(false);
+                            } else if (values.password !== values.confirmPassword) {
+                                handleMessage('Passwords do not match');
+                                setSubmitting(false);
+                            }
+                            else {
+                                handleSignUp(values, setSubmitting);
+                            }
                         }}   
                     >   
-                        {({handleChange, handleBlur, handleSubmit, values}) => (
+                        {({handleChange, handleBlur, handleSubmit, values, isSubmitting}) => (
                             <StyledFormArea>
                                 <MyTextInput
                                     label="Full Name"
                                     icon="person"
                                     placeholder="First Last"
                                     placeholderTextColor={darkLight}
-                                    onChangeText={handleChange('fullName')}
-                                    onBlur={handleBlur('fullName')}
-                                    value={values.fullName}
+                                    onChangeText={handleChange('name')}
+                                    onBlur={handleBlur('name')}
+                                    value={values.name}
                                     isPassword={undefined} 
                                     hidePassword={undefined} 
                                     setHidePassword={undefined}
@@ -167,10 +209,15 @@ const Signup = () => {
                                     hidePassword={hidePassword}
                                     setHidePassword={setHidePassword}
                                 />
-                                <MsgBox>...</MsgBox>
-                                <StyledButton onPress={handleSubmit}>
+                                <MsgBox type={messageType}>{message}</MsgBox>
+
+                                {!isSubmitting && <StyledButton onPress={handleSubmit}>
                                     <ButtonText>Signup</ButtonText>
-                                </StyledButton>
+                                </StyledButton>}
+
+                                {isSubmitting && <StyledButton disabled={true}>
+                                    <ActivityIndicator size="large" color={'white'} />
+                                </StyledButton>}
                                 <Line/>
                                 <ExtraView>
                                     <ExtraText>Already have an account already? </ExtraText>

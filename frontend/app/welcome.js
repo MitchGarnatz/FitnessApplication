@@ -1,6 +1,8 @@
 import React from 'react';
 import { StatusBar} from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
+import { Link } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 
 import {
     InnerContainer,
@@ -17,6 +19,10 @@ import {
 } from './components/styles';
 
 const Welcome = () => {
+    const params = useLocalSearchParams();
+    const name = params.name;
+    const email = params.email;
+
     const navigation = useNavigation();
 
     const handleLogOutPress = () => {
@@ -26,12 +32,12 @@ const Welcome = () => {
     return (
         <>
             <StatusBar style="light"/>
-            <InnerContainer>
+            <InnerContainer> 
                 <WelcomeImage resizeMode="cover" source={require('./assets/waterfall.png')}/>
                 <WelcomeContainer>   
                     <PageTitle welcome={true}>Welcome!</PageTitle>
-                    <SubTitle welcome={true}>Jonny Boy</SubTitle>
-                    <SubTitle welcome={true}>jonnyboy@gmail.com</SubTitle>
+                    <SubTitle welcome={true}>{name || 'Jonny Boy'}</SubTitle>
+                    <SubTitle welcome={true}>{email || 'jonnyboy@gmail.com'}</SubTitle>
                     <StyledFormArea>
                     <Avatar resizeMode="cover" source={require('./assets/waterfall.png')} />
                         <Line/>
