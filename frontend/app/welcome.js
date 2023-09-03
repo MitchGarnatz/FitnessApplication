@@ -1,5 +1,6 @@
 import React from 'react';
 import { StatusBar} from 'expo-status-bar';
+import { useNavigation } from 'expo-router';
 
 import {
     InnerContainer,
@@ -16,6 +17,11 @@ import {
 } from './components/styles';
 
 const Welcome = () => {
+    const navigation = useNavigation();
+
+    const handleLogOutPress = () => {
+        navigation.navigate('login'); // Navigate to the 'welcome' screen
+    };
 
     return (
         <>
@@ -29,7 +35,7 @@ const Welcome = () => {
                     <StyledFormArea>
                     <Avatar resizeMode="cover" source={require('./assets/waterfall.png')} />
                         <Line/>
-                        <StyledButton onPress={() => {}}>
+                        <StyledButton onPress={handleLogOutPress}>
                             <ButtonText>Logout</ButtonText>
                         </StyledButton>
                     </StyledFormArea>

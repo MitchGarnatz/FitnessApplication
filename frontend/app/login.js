@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
+import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
+import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
+import { useNavigation } from 'expo-router';
 import {
     Colors,
     StyledContainer,
@@ -24,15 +27,27 @@ import {
     TextLinkContent
 
 } from './components/styles';
-
-import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
+import { StackRouter } from '@react-navigation/native';
 
 const { brand, darkLight } = Colors;
 
+
 const Login = () => {
+
+    const navigation = useNavigation();
+
+    const handleLoginButtonClick = () => {
+        navigation.navigate('welcome'); // Navigate to the 'welcome' screen
+    };
+
+    const handleSignUpPress = () => {
+        navigation.navigate('signup'); // Navigate to the 'welcome' screen
+    };
+
     const [hidePassword, setHidePassword] = useState(true);
 
     return (
+        <KeyboardAvoidingWrapper>
             <StyledContainer>
                 <StatusBar style="dark"/>
                 <InnerContainer>
@@ -44,6 +59,7 @@ const Login = () => {
                         initialValues={{email: '', password: ''}} 
                         onSubmit={(values) => {
                             console.log(values);
+                            handleLoginButtonClick();
                         }}   
                     >   
                         {({handleChange, handleBlur, handleSubmit, values}) => <StyledFormArea>
@@ -85,7 +101,7 @@ const Login = () => {
                                 </StyledButton>
                                 <ExtraView>
                                     <ExtraText>Don't have an account already? </ExtraText>
-                                    <TextLink>
+                                    <TextLink onPress={handleSignUpPress}>
                                         <TextLinkContent>Signup</TextLinkContent>
                                     </TextLink>
                                 </ExtraView>
@@ -94,6 +110,7 @@ const Login = () => {
                     </Formik>
                 </InnerContainer>
             </StyledContainer>
+        </KeyboardAvoidingWrapper>
     );
 }
 

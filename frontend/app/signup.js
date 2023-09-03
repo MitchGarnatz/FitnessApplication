@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
+import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
+import { useNavigation } from 'expo-router';
 import {
     Colors,
     StyledContainer,
@@ -25,18 +29,25 @@ import {
 
 } from './components/styles';
 
-import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
-import DateTimePicker from '@react-native-community/datetimepicker';
-
 const { brand, darkLight } = Colors;
 
 const Signup = () => {
+
+    const navigation = useNavigation();
     const [hidePassword, setHidePassword] = useState(true);
     const [show, setShow] = useState(false);
     const [date, setDate] = useState(new Date(2000, 0, 1));
 
     // Actual Date of Birth
     const [dob, setDob] = useState();
+
+    const handleSignUpClick = () => {
+        navigation.navigate('welcome'); // Navigate to the 'welcome' screen
+    };
+
+    const handleLoginPress = () => {
+        navigation.navigate('login'); // Navigate to the 'welcome' screen
+    };
 
     const onChange = (event, selectedDate) => {
         console.log(selectedDate.toDateString());
@@ -55,6 +66,7 @@ const Signup = () => {
     }
 
     return (
+        <KeyboardAvoidingWrapper>
             <StyledContainer>
                 <StatusBar style="dark"/>
                 <InnerContainer>
@@ -65,17 +77,15 @@ const Signup = () => {
                         initialValues={{
                             fullName: '', 
                             email: '', 
-                            dateOfBirth: new Date(), 
                             password: '',
                             confirmPassword: ''
                         }} 
                         onSubmit={(values) => {
                             console.log('Submitted values:', {
                                 ...values,
-                                dateOfBirth: dob
+                                dateOfBirth: dob ? dob : new Date()
                             });
-
-                            console.log(dob.toDateString());
+                            handleSignUpClick();
                         }}   
                     >   
                         {({handleChange, handleBlur, handleSubmit, values}) => (
@@ -164,7 +174,7 @@ const Signup = () => {
                                 <Line/>
                                 <ExtraView>
                                     <ExtraText>Already have an account already? </ExtraText>
-                                    <TextLink>
+                                    <TextLink onPress={handleLoginPress}>
                                         <TextLinkContent>Login</TextLinkContent>
                                     </TextLink>
                                 </ExtraView>
@@ -173,6 +183,7 @@ const Signup = () => {
                     </Formik>
                 </InnerContainer>
             </StyledContainer>
+        </KeyboardAvoidingWrapper>
     );
 }
 
