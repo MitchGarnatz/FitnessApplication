@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "Redapt",
     "web": {
       "bundler": "metro"
     },
@@ -8,6 +8,13 @@
       "expo-router"
     ],
     "name": "frontend",
-    "slug": "frontend"
+    "slug": "frontend",
+    "ios": {
+      "supportsTablet": true,
+      "bundlerIdentifier": "com.Redapt.app"
+    },
+    "android": {
+      "package,": "com.Redapt.app"
+    }
   }
 }

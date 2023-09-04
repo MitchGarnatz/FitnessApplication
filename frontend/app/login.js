@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { View, ActivityIndicator, Link } from 'react-native';
+// ios 231662590068-m8s5oepjh5p17vgl9p2ok70ko17alp4r.apps.googleusercontent.com
+// android 231662590068-5af7eo4abents49fotsprqtu3rhiv5nt.apps.googleusercontent.com
+// web 231662590068-56dcrnmp355a1pev0oetuqqg4pih31mg.apps.googleusercontent.com
+
+import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator, Link, Text } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { useNavigation } from 'expo-router';
 import axios from 'axios';
+
+
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+WebBrowser.maybeCompleteAuthSession();
+
+
 import {
     Colors,
     StyledContainer,
@@ -33,6 +46,50 @@ const { brand, darkLight } = Colors;
 
 
 const Login = () => {
+    const [userInfo, setUserInfo] = useState(null);
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        androidClientId: "231662590068-5af7eo4abents49fotsprqtu3rhiv5nt.apps.googleusercontent.com",
+        iosClientId: "231662590068-m8s5oepjh5p17vgl9p2ok70ko17alp4r.apps.googleusercontent.com",
+        webClientId: "231662590068-56dcrnmp355a1pev0oetuqqg4pih31mg.apps.googleusercontent.com",
+    });
+
+    useEffect(() => {
+        handleSignInWithGoogle();
+    }, [response]);
+
+    async function handleSignInWithGoogle() {
+        const user = await AsyncStorage.getItem("@user");
+        if (!user) {
+            if (response?.type === "success") {
+                await getUserInfo(response.authentication.accessToken);
+            }
+        } else {
+            setUserInfo(JSON.parse(user));
+        }
+    };
+
+    const getUserInfo = async (token) => {
+        if (!token) return;
+        try {
+            const response = await fetch (
+                "https://www.googleapis.com/userinfo/v2/me",
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            const user = await response.json();
+            await AsyncStorage.setItem("@user", JSON.stringify(user));
+            setUserInfo(user);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+    
+
     const [hidePassword, setHidePassword] = useState(true);
     const [message, setMessage] = useState();
     const [messageType, setMessageType] = useState();
@@ -66,12 +123,12 @@ const Login = () => {
             setSubmitting(false);
             handleMessage("An error occurred. Check your network and try again");
         })
-    }
+    };
 
     const handleMessage = (message, type = 'FAILED') => {
         setMessage(message);
         setMessageType(type);
-    }
+    };
 
     return (
         <KeyboardAvoidingWrapper>
@@ -131,10 +188,15 @@ const Login = () => {
                                 </StyledButton>}
 
                                 <Line/>
-                                <StyledButton google={true} onPress={handleSubmit}>
+                                <StyledButton google={true} onPress={promptAsync}>
                                     <Fontisto name="google" color={'white'} size={25}/>
                                     <ButtonText google={true}>Sign in with Google</ButtonText>
                                 </StyledButton>
+                                <StyledButton onPress={() => AsyncStorage.removeItem("@user")}>
+                                    <ButtonText>Delete Local Storage</ButtonText>
+                                </StyledButton>
+                                
+                                <Text>{JSON.stringify(userInfo, null, 2)}</Text>
                                 <ExtraView>
                                     <ExtraText>Don't have an account already? </ExtraText>
                                     <TextLink onPress={handleSignUpPress}>
