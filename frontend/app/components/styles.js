@@ -12,6 +12,7 @@ export const Colors = {
     brand: "#d6b976",
     green: "#10B981",
     red: "#EF4444",
+    lightGreen: 'rgba(244,244,244,0.1)',
 }
 
 const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
@@ -178,7 +179,55 @@ export const TextLink = styled(TouchableOpacity)`
 export const TextLinkContent = styled(Text)`
     color: ${brand};
     font-size: 15px;
+
+    ${(props) => {
+        const { resendStatus } = props;
+        if (resendStatus === 'Failed!') {
+            return `color: ${Colors.red}`;
+        } else if (resendStatus === 'Sent!') {
+            return `color: ${Colors.green}`;
+        }
+    }}
+
 `;
+
+export const TopHalf = styled(View)`
+    flex: 1;
+    justify-content: center;
+    padding: 20px;
+`;
+
+export const BottomHalf = styled(TopHalf)`
+    justify-content: space-around;
+`;
+
+export const IconBg = styled(View)`
+    width: 250px;
+    height: 250px;
+    background-color: ${Colors.lightGreen};
+    border-radius: 250px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const InfoText = styled(Text)`
+    text-align: center;
+    color: ${Colors.primary};
+    font-size: 15px;
+`;
+
+export const EmphasizeText = styled(Text)`
+    font-weight: bold;
+    font-style: italic;
+`;
+
+export const InlineGroup = styled(View)`
+    flex-direction: row;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+`;
+
 
 
 

@@ -3,6 +3,8 @@ import { StatusBar} from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
 import { Link } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
     InnerContainer,
@@ -20,12 +22,14 @@ import {
 
 const Welcome = () => {
     const params = useLocalSearchParams();
+    console.log(params.name);
     const name = params.name;
     const email = params.email;
 
     const navigation = useNavigation();
 
     const handleLogOutPress = () => {
+        AsyncStorage.removeItem("@user"); // Clear user data
         navigation.navigate('login'); // Navigate to the 'welcome' screen
     };
 

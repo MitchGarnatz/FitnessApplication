@@ -47,6 +47,12 @@ const { brand, darkLight } = Colors;
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState(null);
+    const [hidePassword, setHidePassword] = useState(true);
+    const [message, setMessage] = useState();
+    const [messageType, setMessageType] = useState();
+
+    const navigation = useNavigation();
+
     const [request, response, promptAsync] = Google.useAuthRequest({
         androidClientId: "231662590068-5af7eo4abents49fotsprqtu3rhiv5nt.apps.googleusercontent.com",
         iosClientId: "231662590068-m8s5oepjh5p17vgl9p2ok70ko17alp4r.apps.googleusercontent.com",
@@ -59,12 +65,14 @@ const Login = () => {
 
     async function handleSignInWithGoogle() {
         const user = await AsyncStorage.getItem("@user");
+        console.log("login.js");
         if (!user) {
             if (response?.type === "success") {
                 await getUserInfo(response.authentication.accessToken);
             }
         } else {
             setUserInfo(JSON.parse(user));
+            navigation.navigate('welcome', JSON.parse(user));
         }
     };
 
@@ -81,20 +89,11 @@ const Login = () => {
             const user = await response.json();
             await AsyncStorage.setItem("@user", JSON.stringify(user));
             setUserInfo(user);
+            navigation.navigate('welcome', {...user});
         } catch (error) {
             console.log(error);
         }
     };
-
-
-
-    
-
-    const [hidePassword, setHidePassword] = useState(true);
-    const [message, setMessage] = useState();
-    const [messageType, setMessageType] = useState();
-
-    const navigation = useNavigation();
 
     const handleSignUpPress = () => {
         navigation.navigate('signup'); // Navigate to the 'welcome' screen
@@ -188,7 +187,7 @@ const Login = () => {
                                 </StyledButton>}
 
                                 <Line/>
-                                <StyledButton google={true} onPress={promptAsync}>
+                                <StyledButton google={true} onPress={() => promptAsync()}>
                                     <Fontisto name="google" color={'white'} size={25}/>
                                     <ButtonText google={true}>Sign in with Google</ButtonText>
                                 </StyledButton>
