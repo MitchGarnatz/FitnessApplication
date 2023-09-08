@@ -1,11 +1,54 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text } from 'react-native';
 import { IconBg, StyledContainer, TopHalf, BottomHalf, Colors, InfoText, EmphasizeText, PageTitle, StyledButton, ButtonText, InlineGroup, TextLinkContent, TextLink} from './components/styles';
 import { Octicons, Ionicons } from '@expo/vector-icons';
+
+import ResendTimer from './components/ResendTimer';
 
 const { brand, green } = Colors;
 
 const Verification = () => {
+    const [resendingEmail, setResendingEmail] = useState(false);
+    const [resendStatus, setResendStatus] = useState('Resend');
+
+    const [timeLeft, setTimeLeft] = useState(null);
+    const [targetTime, setTargetTime] = useState(null);
+
+    const [activeResend, setActiveResend] = useState(false);
+    let resendTimerInterval;
+
+    const calculateTimeLeft = (finalTime) => {
+        const difference = finalTime - +new Date();
+        if (difference >= 0) {
+            setTimeLeft(Math.round(difference / 1000));
+        } else {
+            setTimeLeft(null);
+            clearInterval(resendTimerInterval);
+            setActiveResend(true);
+        }
+    };
+
+    const triggerTimer = (targetTimeInSeconds = 30) => {
+        setTargetTime(targetTimeInSeconds);
+        setActiveResend(false);
+        const finalTime = +new Date() + targetTimeInSeconds * 1000;
+        resendTimerInterval = setInterval(() => (
+            calculateTimeLeft(finalTime), 1000
+        ));
+    };
+
+    useEffect(() => {
+        triggerTimer();
+
+        return () => {
+            clearInterval(resendTimerInterval);
+        };
+    }, []);
+
+    const resendEmail = async () => {
+
+    };
+    
     return (
         <StyledContainer style={{alignItems: 'center',}}>
             <TopHalf>
@@ -27,19 +70,14 @@ const Verification = () => {
                     <ButtonText>Proceed </ButtonText>
                     <Ionicons name="arrow-forward-circle" size={25} color={'white'}/>
                 </StyledButton>
-                <View>
-                    <InlineGroup>
-                        <InfoText>Didn't recieve an email? </InfoText>
-                        <TextLink onPress={() => {console.log("helloworld")}}>
-                            <TextLinkContent style={{textDecorationLine: 'underline'}}>
-                                Resend
-                            </TextLinkContent>
-                        </TextLink>
-                    </InlineGroup>
-                    <InfoText>
-                        in <EmphasizeText>{`20`}</EmphasizeText> second(s)
-                    </InfoText>
-                </View>
+                <ResendTimer
+                    activeResend={activeResend}
+                    resendingEmail={resendingEmail}
+                    resendStatus={resendStatus}
+                    timeLeft={timeLeft}
+                    targetTime={targetTime}
+                    resendEmail={resendEmail}
+                />
             </BottomHalf>
         </StyledContainer>
     );
