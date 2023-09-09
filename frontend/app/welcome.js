@@ -36,6 +36,8 @@ const Welcome = () => {
                 const storedCredentials = JSON.parse(result);
                 setName(storedCredentials.name);
                 setEmail(storedCredentials.email);
+                console.log(storedCredentials.name);
+                console.log(storedCredentials.email);
             } else {
               console.log('No storedCredentials found in AsyncStorage.');
             }
@@ -43,7 +45,7 @@ const Welcome = () => {
           .catch((error) => {
             console.log('Error fetching storedCredentials:', error);
           });
-      }, []);
+      });
 
 
 
