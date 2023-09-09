@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { StatusBar} from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
-import { Link } from 'expo-router';
-import { useLocalSearchParams } from 'expo-router';
-import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CredentialsContext } from './components/CredentialsContext';
 
 import {
     InnerContainer,
@@ -21,16 +19,45 @@ import {
 } from './components/styles';
 
 const Welcome = () => {
-    const params = useLocalSearchParams();
-    console.log(params.name);
-    const name = params.name;
-    const email = params.email;
+    // parameters
+    // const params = useLocalSearchParams();
+    // console.log(params.name);
+    // const name = params.name;
+    // const email = params.email;
+
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        AsyncStorage.getItem('fitnessAppCredentials')
+          .then((result) => {
+            if (result) {
+                const storedCredentials = JSON.parse(result);
+                setName(storedCredentials.name);
+                setEmail(storedCredentials.email);
+            } else {
+              console.log('No storedCredentials found in AsyncStorage.');
+            }
+          })
+          .catch((error) => {
+            console.log('Error fetching storedCredentials:', error);
+          });
+      }, []);
+
+
+
 
     const navigation = useNavigation();
 
     const handleLogOutPress = () => {
-        AsyncStorage.removeItem("@user"); // Clear user data
-        navigation.navigate('login'); // Navigate to the 'welcome' screen
+        AsyncStorage.removeItem('fitnessAppCredentials')
+        .then(() => {
+            setStoredCredentials('');
+            console.log('credentials erased')
+            navigation.navigate('login'); // Navigate to the 'welcome' screen
+        })
+        .catch((error) => console.log(error)); // Clear user data
     };
 
     return (

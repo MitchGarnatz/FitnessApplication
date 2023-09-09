@@ -19,6 +19,7 @@
     "axios": "^1.5.0",
     "babel-plugin-styled-components": ">= 1",
     "expo": "^49.0.3",
+    "expo-app-loading": "^2.1.1",
     "expo-auth-session": "~5.0.2",
     "expo-constants": "~14.4.2",
     "expo-crypto": "~12.4.1",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
@@ -7,6 +7,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { useNavigation } from 'expo-router';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CredentialsContext } from './components/CredentialsContext';
 import {
     Colors,
     StyledContainer,
@@ -40,6 +42,7 @@ const Signup = () => {
     const [date, setDate] = useState(new Date(2000, 0, 1));
     const [message, setMessage] = useState();
     const [messageType, setMessageType] = useState();
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
 
     // Actual Date of Birth
     const [dob, setDob] = useState();
@@ -78,7 +81,7 @@ const Signup = () => {
                 handleMessage(message, status);
                 setSubmitting(false);
             } else {
-                navigation.navigate('welcome', {...data});
+                persistLogin({...data}, message, status)
             }
             setSubmitting(false);
         })
@@ -92,6 +95,18 @@ const Signup = () => {
     const handleMessage = (message, type = 'FAILED') => {
         setMessage(message);
         setMessageType(type);
+    }
+
+    const persistLogin = (credentials, message, status) => {
+        AsyncStorage.setItem('fitnessAppCredentials', JSON.stringify(credentials))
+        .then(() => {
+            handleMessage(message, status);
+            setStoredCredentials(credentials);
+        }) 
+        .catch((error) => {
+            console.lgog(error);
+            handleMessage('Persist login failed');
+        })
     }
 
     return (

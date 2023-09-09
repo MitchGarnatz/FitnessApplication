@@ -2,7 +2,7 @@
 // android 231662590068-5af7eo4abents49fotsprqtu3rhiv5nt.apps.googleusercontent.com
 // web 231662590068-56dcrnmp355a1pev0oetuqqg4pih31mg.apps.googleusercontent.com
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, ActivityIndicator, Link, Text } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
@@ -11,13 +11,12 @@ import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { useNavigation } from 'expo-router';
 import axios from 'axios';
 
-
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CredentialsContext } from './components/CredentialsContext';
 
 WebBrowser.maybeCompleteAuthSession();
-
 
 import {
     Colors,
@@ -50,7 +49,8 @@ const Login = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [message, setMessage] = useState();
     const [messageType, setMessageType] = useState();
-
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+    
     const navigation = useNavigation();
 
     const [request, response, promptAsync] = Google.useAuthRequest({
@@ -64,7 +64,7 @@ const Login = () => {
     }, [response]);
 
     async function handleSignInWithGoogle() {
-        const user = await AsyncStorage.getItem("@user");
+        const user = await AsyncStorage.getItem('fitnessAppCredentials');
         console.log("login.js");
         if (!user) {
             if (response?.type === "success") {
@@ -72,7 +72,7 @@ const Login = () => {
             }
         } else {
             setUserInfo(JSON.parse(user));
-            navigation.navigate('welcome', JSON.parse(user));
+            navigation.navigate('welcome');
         }
     };
 
@@ -87,9 +87,9 @@ const Login = () => {
             );
 
             const user = await response.json();
-            await AsyncStorage.setItem("@user", JSON.stringify(user));
+            await AsyncStorage.setItem('fitnessAppCredentials', JSON.stringify(user));
             setUserInfo(user);
-            navigation.navigate('welcome', {...user});
+            navigation.navigate('welcome');
         } catch (error) {
             console.log(error);
         }
@@ -113,7 +113,8 @@ const Login = () => {
                 handleMessage(message, status);
                 setSubmitting(false);
             } else {
-                navigation.navigate('welcome', {...data[0]});
+                persistLogin({...data[0]}, message, status)
+                navigation.navigate('welcome'); // Navigate to the 'welcome' screen
             }
             setSubmitting(false);
         })
@@ -128,6 +129,18 @@ const Login = () => {
         setMessage(message);
         setMessageType(type);
     };
+
+    const persistLogin = (credentials, message, status) => {
+        AsyncStorage.setItem('fitnessAppCredentials', JSON.stringify(credentials))
+        .then(() => {
+            handleMessage(message, status);
+            setStoredCredentials(credentials);
+        }) 
+        .catch((error) => {
+            console.log(error);
+            handleMessage('Persist login failed');
+        })
+    }
 
     return (
         <KeyboardAvoidingWrapper>
