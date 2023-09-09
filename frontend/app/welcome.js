@@ -19,12 +19,6 @@ import {
 } from './components/styles';
 
 const Welcome = () => {
-    // parameters
-    // const params = useLocalSearchParams();
-    // console.log(params.name);
-    // const name = params.name;
-    // const email = params.email;
-
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -36,8 +30,6 @@ const Welcome = () => {
                 const storedCredentials = JSON.parse(result);
                 setName(storedCredentials.name);
                 setEmail(storedCredentials.email);
-                console.log(storedCredentials.name);
-                console.log(storedCredentials.email);
             } else {
               console.log('No storedCredentials found in AsyncStorage.');
             }
@@ -46,9 +38,6 @@ const Welcome = () => {
             console.log('Error fetching storedCredentials:', error);
           });
       });
-
-
-
 
     const navigation = useNavigation();
 

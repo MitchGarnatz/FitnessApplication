@@ -204,11 +204,6 @@ const Login = () => {
                                     <Fontisto name="google" color={'white'} size={25}/>
                                     <ButtonText google={true}>Sign in with Google</ButtonText>
                                 </StyledButton>
-                                <StyledButton onPress={() => AsyncStorage.removeItem("@user")}>
-                                    <ButtonText>Delete Local Storage</ButtonText>
-                                </StyledButton>
-                                
-                                <Text>{JSON.stringify(userInfo, null, 2)}</Text>
                                 <ExtraView>
                                     <ExtraText>Don't have an account already? </ExtraText>
                                     <TextLink onPress={handleSignUpPress}>

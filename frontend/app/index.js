@@ -1,7 +1,7 @@
 import { Redirect } from 'expo-router';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CredentialsContext } from './components/CredentialsContext';
 
@@ -10,27 +10,28 @@ export default function StartPage() {
   const [appReady, setAppReady] = useState(false);
   const [storedCredentials, setStoredCredentials] = useState(null);
 
-  const checkLoginCredentials = () => {
-    AsyncStorage.getItem('fitnessAppCredentials')
-    .then((result) => {
-      if (result !== null) {
-        setStoredCredentials(JSON.parse(result));
-      } else {
-        setStoredCredentials(null)
-      }
-    })
-    .catch(error => console.log(error))
-  }
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
 
-  if (!appReady) {
-    return (
-      <AppLoading 
-      startAsync={checkLoginCredentials}
-      onFinish={() => setAppReady(true)} 
-      onError={console.warn}
-      />
-    )
-  }
+        // Fetch and set stored credentials
+        const result = await AsyncStorage.getItem('fitnessAppCredentials');
+        if (result !== null) {
+          setStoredCredentials(JSON.parse(result));
+        } else {
+          setStoredCredentials(null);
+        }
+
+        await SplashScreen.hideAsync();
+        setAppReady(true);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    prepare();
+  }, []);
 
   console.log(storedCredentials);
   return (
