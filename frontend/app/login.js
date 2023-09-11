@@ -59,6 +59,15 @@ const Login = () => {
         webClientId: "231662590068-56dcrnmp355a1pev0oetuqqg4pih31mg.apps.googleusercontent.com",
     });
 
+    const clearMessage = () => {
+        setMessage(null);
+        setMessageType(null);
+      };
+
+    useEffect(() => {
+        clearMessage();
+    });
+
     useEffect(() => {
         handleSignInWithGoogle();
     }, [response]);
