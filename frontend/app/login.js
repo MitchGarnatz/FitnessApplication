@@ -66,11 +66,7 @@ const Login = () => {
 
     useEffect(() => {
         clearMessage();
-    });
-
-    useEffect(() => {
-        handleSignInWithGoogle();
-    }, [response]);
+    },[]);
 
     async function handleSignInWithGoogle() {
         const user = await AsyncStorage.getItem('fitnessAppCredentials');
@@ -142,7 +138,7 @@ const Login = () => {
     const persistLogin = (credentials, message, status) => {
         AsyncStorage.setItem('fitnessAppCredentials', JSON.stringify(credentials))
         .then(() => {
-            handleMessage(message, status);
+            // handleMessage(message, status);
             setStoredCredentials(credentials);
         }) 
         .catch((error) => {
