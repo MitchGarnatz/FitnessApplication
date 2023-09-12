@@ -8,7 +8,7 @@ import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
-import { useNavigation } from 'expo-router';
+import { useNavigation, useFocusEffect } from 'expo-router';
 import axios from 'axios';
 
 import * as WebBrowser from 'expo-web-browser';
@@ -44,7 +44,7 @@ import {
 const { brand, darkLight } = Colors;
 
 
-const Login = () => {
+const Login = (newVisit) => {
     const [userInfo, setUserInfo] = useState(null);
     const [hidePassword, setHidePassword] = useState(true);
     const [message, setMessage] = useState();
@@ -62,11 +62,17 @@ const Login = () => {
     const clearMessage = () => {
         setMessage(null);
         setMessageType(null);
-      };
+    };
+
+    useFocusEffect(
+        React.useCallback(() => {
+            clearMessage();
+        }, [])
+    );
 
     useEffect(() => {
-        clearMessage();
-    },[]);
+        handleSignInWithGoogle();
+    }, [response]);
 
     async function handleSignInWithGoogle() {
         const user = await AsyncStorage.getItem('fitnessAppCredentials');
@@ -138,7 +144,7 @@ const Login = () => {
     const persistLogin = (credentials, message, status) => {
         AsyncStorage.setItem('fitnessAppCredentials', JSON.stringify(credentials))
         .then(() => {
-            // handleMessage(message, status);
+            handleMessage(message, status);
             setStoredCredentials(credentials);
         }) 
         .catch((error) => {
