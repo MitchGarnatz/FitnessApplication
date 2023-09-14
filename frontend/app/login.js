@@ -8,7 +8,7 @@ import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons'
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
-import { useNavigation, useFocusEffect } from 'expo-router';
+import { useNavigation, useFocusEffect, useGlobalSearchParams } from 'expo-router';
 import axios from 'axios';
 
 import * as WebBrowser from 'expo-web-browser';
@@ -44,12 +44,15 @@ import {
 const { brand, darkLight } = Colors;
 
 
-const Login = (newVisit) => {
+const Login = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [hidePassword, setHidePassword] = useState(true);
     const [message, setMessage] = useState();
     const [messageType, setMessageType] = useState();
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+
+    const glob = useGlobalSearchParams();
+    const email = glob?.email;
     
     const navigation = useNavigation();
 
@@ -163,7 +166,8 @@ const Login = (newVisit) => {
                     <SubTitle>Account Login</SubTitle>
 
                     <Formik
-                        initialValues={{email: '', password: ''}} 
+                        initialValues={{email: email, password: ''}} 
+                        enableReinitialize={true}
                         onSubmit={(values, {setSubmitting}) => {
                             if (values.email == '' || values.password == '') {
                                 handleMessage('Please fill all the fields');

@@ -9,6 +9,7 @@ import { useNavigation } from 'expo-router';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CredentialsContext } from './components/CredentialsContext';
+import { baseAPIUrl } from './components/shared';
 import {
     Colors,
     StyledContainer,
@@ -48,7 +49,7 @@ const Signup = () => {
     const [dob, setDob] = useState();
 
     const handleLoginPress = () => {
-        navigation.navigate('login'); // Navigate to the 'welcome' screen
+        navigation.navigate('login'); 
     };
 
     const onChange = (event, selectedDate) => {
@@ -69,7 +70,7 @@ const Signup = () => {
 
     const handleSignUp = (credentials, setSubmitting) => {
         handleMessage(null);
-        const url = 'https://rocky-mesa-32873-0728902da64a.herokuapp.com/user/signup';
+        const url = `${baseAPIUrl}/user/signup`;
 
         axios
         .post(url, credentials)
@@ -77,11 +78,12 @@ const Signup = () => {
             const result = response.data
             const {message, status, data} = result;
 
-            if (status !== 'SUCCESS') {
+            if (status !== 'PENDING') {
                 handleMessage(message, status);
                 setSubmitting(false);
             } else {
-                persistLogin({...data}, message, status)
+                // persistLogin({...data}, message, status);
+                navigation.navigate('LinkVerification', { ...data });
             }
             setSubmitting(false);
         })

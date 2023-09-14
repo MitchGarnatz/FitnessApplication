@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigation, useGlobalSearchParams } from 'expo-router';
 import { Text } from 'react-native';
 import { IconBg, StyledContainer, TopHalf, BottomHalf, Colors, InfoText, EmphasizeText, PageTitle, StyledButton, ButtonText, InlineGroup, TextLinkContent, TextLink} from './components/styles';
 import { Octicons, Ionicons } from '@expo/vector-icons';
 
 import ResendTimer from './components/ResendTimer';
 
+import axios from 'axios';
+
+import { baseAPIUrl } from './components/shared';
+
 const { brand, green } = Colors;
 
 const Verification = () => {
+
+    const navigation = useNavigation();
+
+    const glob = useGlobalSearchParams();
+    const email = glob?.email;
+    const userId = glob?.userId;
+
     const [resendingEmail, setResendingEmail] = useState(false);
     const [resendStatus, setResendStatus] = useState('Resend');
-
     const [timeLeft, setTimeLeft] = useState(null);
     const [targetTime, setTargetTime] = useState(null);
-
     const [activeResend, setActiveResend] = useState(false);
+
     let resendTimerInterval;
 
     const calculateTimeLeft = (finalTime) => {
@@ -46,7 +57,23 @@ const Verification = () => {
     }, []);
 
     const resendEmail = async () => {
-
+        setResendingEmail(true);
+        // make request
+        const url = `${baseAPIUrl}/user/resendVerificationLink`;
+        try {
+            await axios.post(url, { email, userId });
+            setResendStatus('Sent!');
+        } catch (error) {
+            setResendStatus('Failed!');
+            alert(`Resending email failed! ${error.message}`);
+        }
+        setResendingEmail(false);
+        // hold on message
+        setTimeout(() => {
+            setResendStatus('Resend');
+            setActiveResend(false);
+            triggerTimer();
+        }, 5000);
     };
     
     return (
@@ -61,11 +88,11 @@ const Verification = () => {
                 <PageTitle style={{ fontSize: 25 }}> Account Verification </PageTitle>
                 <InfoText>
                     <Text>Please verify your email using the link sent to </Text>
-                    <EmphasizeText>test.tothepointcode@gmail.com</EmphasizeText>
+                    <EmphasizeText>{`${email}`}</EmphasizeText>
                 </InfoText>
 
                 <StyledButton 
-                onPress={() => {console.log("helloworld")}}
+                onPress={() => navigation.navigate('login', {email: email})}
                 style={{ backgroundColor: green, flexDirection: 'row'}}>
                     <ButtonText>Proceed </ButtonText>
                     <Ionicons name="arrow-forward-circle" size={25} color={'white'}/>
