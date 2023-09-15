@@ -17,7 +17,11 @@ export default function StartPage() {
 
         // Fetch and set stored credentials
         const result = await AsyncStorage.getItem('fitnessAppCredentials');
+
         if (result !== null) {
+          console.log(JSON.parse(result).firstLogin);
+          console.log(JSON.parse(result));
+          
           setStoredCredentials(JSON.parse(result));
         } else {
           setStoredCredentials(null);
@@ -33,7 +37,8 @@ export default function StartPage() {
     prepare();
   }, []);
 
-  console.log(storedCredentials);
+  
+
   return (
     <CredentialsContext.Provider value={{storedCredentials, setStoredCredentials}}>
       {storedCredentials ? 

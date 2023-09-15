@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation, useGlobalSearchParams } from 'expo-router';
+import { StatusBar} from 'expo-status-bar';
 import { Text } from 'react-native';
 import { IconBg, StyledContainer, TopHalf, BottomHalf, Colors, InfoText, EmphasizeText, PageTitle, StyledButton, ButtonText, InlineGroup, TextLinkContent, TextLink} from './components/styles';
 import { Octicons, Ionicons } from '@expo/vector-icons';
@@ -78,6 +79,7 @@ const Verification = () => {
     
     return (
         <StyledContainer style={{alignItems: 'center',}}>
+            <StatusBar style="light"/>
             <TopHalf>
                 <IconBg>
                     <Octicons  name="paper-airplane" size={125} color={brand} />

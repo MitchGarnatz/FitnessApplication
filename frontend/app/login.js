@@ -123,7 +123,10 @@ const Login = () => {
             const result = response.data
             const {message, status, data} = result;
 
-            if (status !== 'SUCCESS') {
+            if (status === 'FIRSTLOGIN') {
+                navigation.navigate('attributesOne'); // Navigate to the 'welcome' screen
+            }
+            else if (status !== 'SUCCESS') {
                 handleMessage(message, status);
                 setSubmitting(false);
             } else {
@@ -159,7 +162,7 @@ const Login = () => {
     return (
         <KeyboardAvoidingWrapper>
             <StyledContainer>
-                <StatusBar style="dark"/>
+                <StatusBar style="light"/>
                 <InnerContainer>
                     <PageLogo resizeMode="cover" source={require('./assets/logo.png')} />
                     <PageTitle>Fitness Through AI</PageTitle>

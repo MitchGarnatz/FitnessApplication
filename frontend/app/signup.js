@@ -114,7 +114,7 @@ const Signup = () => {
     return (
         <KeyboardAvoidingWrapper>
             <StyledContainer>
-                <StatusBar style="dark"/>
+                <StatusBar style="light"/>
                 <InnerContainer>
                     <PageTitle>Fitness Through AI</PageTitle>
                     <SubTitle>Account Signup</SubTitle>
