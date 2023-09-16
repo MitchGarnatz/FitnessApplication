@@ -52,7 +52,6 @@ const Login = () => {
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
 
     const glob = useGlobalSearchParams();
-    const email = glob?.email;
     
     const navigation = useNavigation();
 
@@ -169,7 +168,10 @@ const Login = () => {
                     <SubTitle>Account Login</SubTitle>
 
                     <Formik
-                        initialValues={{email: email, password: ''}} 
+                        initialValues={{
+                            email: glob.email || '',
+                            password: ''
+                        }} 
                         enableReinitialize={true}
                         onSubmit={(values, {setSubmitting}) => {
                             if (values.email == '' || values.password == '') {
