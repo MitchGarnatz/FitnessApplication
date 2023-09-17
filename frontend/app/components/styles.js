@@ -228,6 +228,11 @@ export const InlineGroup = styled(View)`
     align-items: center;
 `;
 
+export const NewLine = styled(View)`
+    flex-direction: row;
+    padding: 5px;
+`;
+
 
 
 
