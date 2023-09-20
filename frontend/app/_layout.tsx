@@ -11,6 +11,11 @@ const StackLayout = () => {
             <Stack.Screen name="LinkVerification" options={{ headerShown: false }}/>
             <Stack.Screen name="attributes1" options={{ headerShown: false }}/>
             <Stack.Screen name="attributes2" options={{ headerShown: false }}/>
+            <Stack.Screen name="attributes3" options={{ headerShown: false }}/>
+            <Stack.Screen name="attributes4" options={{ headerShown: false }}/>
+            <Stack.Screen name="attributes5" options={{ headerShown: false }}/>
+            <Stack.Screen name="attributes6" options={{ headerShown: false }}/>
+            <Stack.Screen name="attributes7" options={{ headerShown: false }}/>
         </Stack>
     );
 }

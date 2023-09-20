@@ -232,7 +232,3 @@ export const NewLine = styled(View)`
     flex-direction: row;
     padding: 5px;
 `;
-
-
-
-

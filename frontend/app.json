@@ -1,6 +1,11 @@
 {
   "expo": {
     "scheme": "Redapt",
+    "splash": {
+      "image": "./app/assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF" 
+    },
     "web": {
       "bundler": "metro"
     },

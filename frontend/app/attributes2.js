@@ -24,9 +24,9 @@ const attributes2 = () => {
 
     const proceed = (status) => {
         console.log(status);
-        const data = { Physically_Active: status };
+        const data = { physically_active: status };
         console.log(data);
-        navigation.navigate('attributes1', {data});
+        navigation.navigate('attributes3', {data});
     }
 
   const navigation = useNavigation();
@@ -36,11 +36,15 @@ const attributes2 = () => {
       <StyledContainer>
         <StatusBar style="light" />
         <InnerContainer>
-          <PageTitle>Enter User Information Below:</PageTitle>
+          <PageTitle>Are you currently physically active?</PageTitle>
             <StyledFormArea>
                 
+            <StyledButton onPress={() => proceed('Yes')}>
+                  <ButtonText>Yes</ButtonText>
+                </StyledButton>
+                
                 <StyledButton onPress={() => proceed('No')}>
-                  <ButtonText>Proceed</ButtonText>
+                  <ButtonText>No</ButtonText>
                 </StyledButton>
 
                 <Line />
