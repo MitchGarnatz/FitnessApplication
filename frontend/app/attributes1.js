@@ -37,6 +37,8 @@ const attributes1 = () => {
   const [showAthleticBackgroundPicker, setShowAthleticBackgroundPicker] = useState(false);
   const [selectedAthleticBackground, setSelectedAthleticBackground] = useState('');
 
+  const glob = useGlobalSearchParams();
+
   const handleAgePicker = () => {
     setShowAgePicker(!showAgePicker);
   };
@@ -76,10 +78,12 @@ const attributes1 = () => {
                 values.weight = selectedWeight;
                 values.gender = selectedGender;
                 values.athletic_background = selectedAthleticBackground;
+                values.email = glob.email;
 
                 if (values.age == '' || values.height == '' || values.weight == '' || values.gender == '') {
                   console.log("fill in all fields before proceeding")
               } else {
+                console.log(values);
                   navigation.navigate('attributes2', values);
               }
             }}

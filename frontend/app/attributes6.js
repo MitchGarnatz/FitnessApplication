@@ -27,6 +27,7 @@ const attributes6 = () => {
 
     const proceed = (status) => {
         const data = { 
+            email: glob.email,
             age: glob.age,
             height: glob.height,
             weight: glob.weight,

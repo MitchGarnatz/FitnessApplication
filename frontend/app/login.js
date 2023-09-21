@@ -123,7 +123,7 @@ const Login = () => {
             const {message, status, data} = result;
 
             if (status === 'FIRSTLOGIN') {
-                navigation.navigate('attributesOne'); // Navigate to the 'welcome' screen
+                navigation.navigate('attributes1', credentials); // Navigate to the 'welcome' screen
             }
             else if (status !== 'SUCCESS') {
                 handleMessage(message, status);

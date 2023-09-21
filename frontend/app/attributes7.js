@@ -37,6 +37,8 @@ const attributes7 = () => {
   
     const proceed = () => {
       const data = {
+        email: glob.email,
+
         age: glob.age,
         height: glob.height,
         weight: glob.weight,
@@ -56,8 +58,6 @@ const attributes7 = () => {
         lower_back_problems: lowerBackProblems ? '1' : '0',
         
       };
-
-      console.log(data);
 
       const url = `${baseAPIUrl}/user/predict`;
 
