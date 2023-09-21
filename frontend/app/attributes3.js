@@ -36,7 +36,6 @@ const attributes3 = () => {
             aesthetics: status
         };
 
-        console.log(data);
         navigation.navigate('attributes4', data);
     }
 

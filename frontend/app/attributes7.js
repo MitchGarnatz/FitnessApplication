@@ -4,6 +4,8 @@ import { useNavigation } from 'expo-router';
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { CheckBox } from 'react-native-elements';
 import { useGlobalSearchParams } from 'expo-router';
+import { baseAPIUrl } from './components/shared';
+import axios from 'axios';
 
 import {
   Colors,
@@ -46,17 +48,35 @@ const attributes7 = () => {
         aesthetics: glob.aesthetics,
         strength: glob.strength,
         speed: glob.speed,
-        
+
         leg_injury: legInjury ? '1' : '0',
         arm_injury: armInjury ? '1' : '0',
         heart_problems: heartProblems ? '1' : '0',
         upper_back_problems: upperBackProblems ? '1' : '0',
         lower_back_problems: lowerBackProblems ? '1' : '0',
+        
       };
 
       console.log(data);
-  
-      navigation.navigate('(tabs)', data );
+
+      const url = `${baseAPIUrl}/user/predict`;
+
+      axios
+        .post(url, data)
+        .then((response) => {
+            const result = response.data
+            const {message, status, data} = result;
+
+            console.log(data);
+            console.log(status);
+            console.log(message);
+
+            navigation.navigate('(tabs)', {...data} );
+        
+        })
+        .catch(error => {
+            console.log(error);
+        })
     };
   
     return (

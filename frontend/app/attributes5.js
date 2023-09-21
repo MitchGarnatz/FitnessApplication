@@ -37,7 +37,6 @@ const attributes5 = () => {
             strength: glob.strength,
             speed: status
         };
-        console.log(data);
         navigation.navigate('attributes6', data);
     }
 

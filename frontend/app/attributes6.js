@@ -38,7 +38,6 @@ const attributes6 = () => {
             speed: glob.speed,
             weight_loss: status,
         };
-        console.log(data);
         navigation.navigate('attributes7', data);
     }
 

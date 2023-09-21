@@ -77,12 +77,11 @@ const attributes1 = () => {
                 values.gender = selectedGender;
                 values.athletic_background = selectedAthleticBackground;
 
-              //   if (values.age == '' || values.height == '' || values.weight == '' || values.gender == '') {
-              //     console.log("fill in all fields before proceeding")
-              // } else {
-                console.log(values);
+                if (values.age == '' || values.height == '' || values.weight == '' || values.gender == '') {
+                  console.log("fill in all fields before proceeding")
+              } else {
                   navigation.navigate('attributes2', values);
-              // }
+              }
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => (

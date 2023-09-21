@@ -36,7 +36,6 @@ const attributes4 = () => {
             aesthetics: glob.aesthetics,
             strength: status
         };
-        console.log(data);
         navigation.navigate('attributes5', data );
     }
 

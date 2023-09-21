@@ -34,7 +34,6 @@ const attributes2 = () => {
             athletic_background: glob.athletic_background,
             physically_active: status 
         };
-        console.log(data);
         navigation.navigate('attributes3', data);
     }
 
