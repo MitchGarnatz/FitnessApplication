@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { CheckBox } from 'react-native-elements';
+import { useGlobalSearchParams } from 'expo-router';
 
 import {
   Colors,
@@ -29,18 +30,33 @@ const attributes7 = () => {
     const [lowerBackProblems, setLowerBackProblems] = useState(false);
   
     const navigation = useNavigation();
+
+    const glob = useGlobalSearchParams();
   
     const proceed = () => {
-      const formData = {
+      const data = {
+        age: glob.age,
+        height: glob.height,
+        weight: glob.weight,
+        gender: glob.gender,
+        athletic_background: glob.athletic_background,
+
+        physically_active: glob.physically_active,
+        weight_loss: glob.weight_loss,
+        aesthetics: glob.aesthetics,
+        strength: glob.strength,
+        speed: glob.speed,
+        
         leg_injury: legInjury ? '1' : '0',
         arm_injury: armInjury ? '1' : '0',
         heart_problems: heartProblems ? '1' : '0',
         upper_back_problems: upperBackProblems ? '1' : '0',
         lower_back_problems: lowerBackProblems ? '1' : '0',
       };
+
+      console.log(data);
   
-      console.log(formData);
-      navigation.navigate('login', { data: formData });
+      navigation.navigate('(tabs)', data );
     };
   
     return (

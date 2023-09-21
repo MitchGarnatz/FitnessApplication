@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import PickerSelect from 'react-native-picker-select'; // Import PickerSelect
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
+import { useGlobalSearchParams } from 'expo-router';
 
 
 import {

@@ -43,7 +43,7 @@ export default function StartPage() {
     <CredentialsContext.Provider value={{storedCredentials, setStoredCredentials}}>
       {storedCredentials ? 
         ( <Redirect href="/welcome"/> ) : 
-        ( <Redirect href="/attributes7" /> )
+        ( <Redirect href="/attributes1" /> )
       }
     </CredentialsContext.Provider>
   )

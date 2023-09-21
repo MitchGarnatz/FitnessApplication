@@ -7,8 +7,8 @@ const StackLayout = () => {
             <Stack.Screen 
                 name="index" 
                 options={{ 
-                    headerShown: false, // Hide the header
-                    headerTitle: 'Home Screen', 
+                    headerShown: true, // Hide the header
+                    headerTitle: 'Home', 
                 }}
             />
         </Stack>

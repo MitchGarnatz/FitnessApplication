@@ -26,21 +26,12 @@ export default () => {
             <Tabs.Screen 
                 name="list" 
                 options={{
-                    headerShown: false, // Hide the header
+                    headerShown: true, // Hide the header
                     headerTitle: 'List', 
                     tabBarLabel: 'List',
                     tabBarLabelStyle: styles.tabBarLabel, // Apply your custom style here
                 }}
             />
-            {/* <Tabs.Screen 
-                name="login" 
-                options={{
-                    headerShown: false, // Hide the header
-                    headerTitle: 'LogIn', 
-                    tabBarLabel: 'LogIn',
-                    tabBarLabelStyle: styles.tabBarLabel, // Apply your custom style here
-                }} */}
-            {/* /> */}
         </Tabs>
     )
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
+import { useGlobalSearchParams } from 'expo-router';
 
 
 import {
@@ -22,11 +23,21 @@ const { brand, darkLight } = Colors;
 
 const attributes4 = () => {
 
+    const glob = useGlobalSearchParams();
+
     const proceed = (status) => {
-        console.log(status);
-        const data = { strength: status };
+        const data = { 
+            age: glob.age,
+            height: glob.height,
+            weight: glob.weight,
+            gender: glob.gender,
+            athletic_background: glob.athletic_background,
+            physically_active: glob.physically_active,
+            aesthetics: glob.aesthetics,
+            strength: status
+        };
         console.log(data);
-        navigation.navigate('attributes5', {data});
+        navigation.navigate('attributes5', data );
     }
 
   const navigation = useNavigation();
