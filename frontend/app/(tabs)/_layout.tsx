@@ -32,6 +32,15 @@ export default () => {
                     tabBarLabelStyle: styles.tabBarLabel, // Apply your custom style here
                 }}
             />
+            <Tabs.Screen 
+                name="welcome" 
+                options={{
+                    headerShown: true, // Hide the header
+                    headerTitle: 'Welcome', 
+                    tabBarLabel: 'Welcome',
+                    tabBarLabelStyle: styles.tabBarLabel, // Apply your custom style here
+                }}
+            />
         </Tabs>
     )
 }

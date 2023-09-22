@@ -84,8 +84,8 @@ const Login = () => {
                 await getUserInfo(response.authentication.accessToken);
             }
         } else {
-            setUserInfo(JSON.parse(user));
-            navigation.navigate('welcome');
+            // setUserInfo(JSON.parse(user));
+            // navigation.navigate('welcome');
         }
     };
 
@@ -109,7 +109,7 @@ const Login = () => {
     };
 
     const handleSignUpPress = () => {
-        navigation.navigate('signup'); // Navigate to the 'welcome' screen
+        navigation.navigate('signup'); 
     };
 
     const handleLogin = (credentials, setSubmitting) => {
@@ -123,14 +123,14 @@ const Login = () => {
             const {message, status, data} = result;
 
             if (status === 'FIRSTLOGIN') {
-                navigation.navigate('attributes1', credentials); // Navigate to the 'welcome' screen
+                navigation.navigate('attributes1', credentials); 
             }
             else if (status !== 'SUCCESS') {
                 handleMessage(message, status);
                 setSubmitting(false);
             } else {
-                persistLogin({...data[0]}, message, status)
-                navigation.navigate('welcome'); // Navigate to the 'welcome' screen
+                persistLogin({...data[0]}, message, status);
+                navigation.navigate('welcome'); 
             }
             setSubmitting(false);
         })

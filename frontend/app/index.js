@@ -1,10 +1,12 @@
 import { Redirect } from 'expo-router';
 import React, {useState, useEffect} from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CredentialsContext } from './components/CredentialsContext';
 
+import HomePage from './(tabs)/home';
 
 export default function StartPage() {
   const [appReady, setAppReady] = useState(false);
@@ -35,16 +37,25 @@ export default function StartPage() {
     }
 
     prepare();
+
+    console.log(storedCredentials);
   }, []);
 
-  
 
+// Inside your StartPage component
   return (
-    <CredentialsContext.Provider value={{storedCredentials, setStoredCredentials}}>
-      {storedCredentials ? 
-        ( <Redirect href="/welcome"/> ) : 
-        ( <Redirect href="/login" /> )
-      }
+    <CredentialsContext.Provider value={{ storedCredentials, setStoredCredentials }}>
+      {appReady ? (
+        storedCredentials ? (
+          <Redirect href="(tabs)/home" />
+        ) : (
+          <Redirect href="/login" />
+        )
+      ) : (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" />
+        </View>
+      )}
     </CredentialsContext.Provider>
-  )
+  );
 };
