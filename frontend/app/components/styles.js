@@ -232,3 +232,46 @@ export const NewLine = styled(View)`
     flex-direction: row;
     padding: 5px;
 `;
+
+export const TopRightContainer = styled(View)`
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background-color: ${tertiary}; /* Background color for the container */
+    border: 1px solid white; /* White border for the outline */
+    border-radius: 5px; /* Border radius for rounded corners */
+    padding: 5px; /* Padding for some space around the icon */
+`;
+
+export const CheckListContainer = styled(View)`
+  background-color: ${Colors.tertiary};
+  border: 1px solid ${Colors.primary};
+  width: 100%;
+  justify-content: center;
+    align-items: center;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+`;
+
+export const CheckListItem = styled(View)`
+    background-color: ${Colors.primary};
+  border: 1px solid ${Colors.secondary};
+  width: 95%;
+  
+
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
+
+export const PlanSubTitle = styled(Text)`
+    font-size: 18px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: black;
+`;

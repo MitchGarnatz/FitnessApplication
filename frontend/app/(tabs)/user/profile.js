@@ -2,11 +2,12 @@ import { View } from 'react-native';
 import { Link } from 'expo-router';
 import React from 'react';
 
+import { Octicons, Ionicons } from '@expo/vector-icons';
 import {useEffect, useState, useContext} from 'react';
 import { StatusBar} from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CredentialsContext } from '../components/CredentialsContext';
+import { CredentialsContext } from '../../components/CredentialsContext';
 
 import {
     InnerContainer,
@@ -18,9 +19,10 @@ import {
     Line,
     WelcomeContainer,
     WelcomeImage,
+    TopRightContainer,
     Avatar
 
-} from '../components/styles';
+} from '../../components/styles';
 
 const Profile = () => {
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
@@ -59,13 +61,19 @@ const Profile = () => {
         <>
             <StatusBar style="light"/>
             <InnerContainer> 
-                <WelcomeImage resizeMode="cover" source={require('../assets/waterfall.png')}/>
                 <WelcomeContainer>   
+                    <TopRightContainer>
+                        {/* <SubTitle >Settings */}
+                            <Link style={{ color: 'white' }} href="/user/settings">
+                                <Ionicons name="settings-outline" size={30}></Ionicons>
+                            </Link>
+                        {/* </SubTitle> */}
+                    </TopRightContainer>
                     <PageTitle welcome={true}>Welcome!</PageTitle>
                     <SubTitle welcome={true}>{name || 'Jonny Boy'}</SubTitle>
                     <SubTitle welcome={true}>{email || 'jonnyboy@gmail.com'}</SubTitle>
                     <StyledFormArea>
-                    <Avatar resizeMode="cover" source={require('../assets/waterfall.png')} />
+                    <Avatar resizeMode="cover" source={require('../../assets/waterfall.png')} />
                         <Line/>
                         <StyledButton onPress={handleLogOutPress}>
                             <ButtonText>Logout</ButtonText>

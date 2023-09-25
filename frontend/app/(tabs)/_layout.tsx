@@ -57,14 +57,14 @@ export default () => {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="user"
         options={{
           headerTitle: 'Profile',
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-circle-outline" size={30} color={color} /> // Use color from props
           ),
-          headerShown: true,
+          headerShown: false,
           tabBarShowLabel: false,
         }}
       />

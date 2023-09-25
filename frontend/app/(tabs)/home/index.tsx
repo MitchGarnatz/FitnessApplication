@@ -1,19 +1,58 @@
-import { Link, Stack } from 'expo-router';
-import { View, Text, Button } from 'react-native';
-import React from 'react';
 import { useGlobalSearchParams } from 'expo-router';
+import { Octicons, Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
-const HomePage = () => {
+import {
+  InnerContainer,
+  WelcomeContainer,
+  WelcomeImage,
+  PageTitle,
+  SubTitle,
+  StyledButton,
+  ButtonText,
+  Avatar,
+  IconBg,
+  NewLine,
+  InfoText,
+  EmphasizeText,
+} from '../../components/styles';
+
+const Home = () => {
 
   const glob = useGlobalSearchParams();
+
+  console.log("hello world");
   console.log(glob);
 
   return (
-    <View style={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1F2937' }}>
-      <Link style={{color: 'white'}} href="/home/settings">Push Settings</Link>
-      <Link style={{color: 'white'}} href="/login">Push Settings</Link>
-    </View>
-  )
-}
+    <InnerContainer>
+      <WelcomeContainer>
+        <PageTitle>Welcome to Redapt</PageTitle>
+        <SubTitle>Personalized fitness generated with AI</SubTitle>
+        <IconBg>
+          <Octicons  name="paper-airplane" size={125} color={'blue'} />
+        </IconBg>
+        
+        <NewLine/>
+        <NewLine/>
+        <NewLine/>
 
-export default HomePage;
+        <InfoText>
+          Explore the world of fitness with <EmphasizeText>personalized AI recommendations</EmphasizeText>.
+        </InfoText>
+        <NewLine/>
+        <InfoText>
+          Achieve your fitness goals like never before!
+        </InfoText>
+      </WelcomeContainer>
+    </InnerContainer>
+  );
+};
+
+export default Home;
