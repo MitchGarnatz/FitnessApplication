@@ -1,59 +1,73 @@
-import { Tabs } from "expo-router"
+import { Tabs } from "expo-router";
 import { StyleSheet } from 'react-native';
 import React from 'react';
+import { Octicons, Ionicons } from '@expo/vector-icons';
 
 export default () => {
-    return (
-        <Tabs screenOptions={{
-            tabBarActiveTintColor: 'black',
-            tabBarStyle: {
-            height: 70,
-            borderWidth: 1,
-            // borderRadius: 50,
-            borderColor: 'yellow',
-            borderTopColor: 'gold',
-            backgroundColor: 'white',
-            
-            }}}>
-            <Tabs.Screen 
-                name="home" 
-                options={{ 
-                    tabBarLabel: 'Home',
-                    tabBarLabelStyle: styles.tabBarLabel,
-                    headerShown: false 
-                }} 
-            />
-            <Tabs.Screen 
-                name="list" 
-                options={{
-                    headerShown: true, // Hide the header
-                    headerTitle: 'List', 
-                    tabBarLabel: 'List',
-                    tabBarLabelStyle: styles.tabBarLabel, // Apply your custom style here
-                }}
-            />
-            <Tabs.Screen 
-                name="welcome" 
-                options={{
-                    headerShown: true, // Hide the header
-                    headerTitle: 'Welcome', 
-                    tabBarLabel: 'Welcome',
-                    tabBarLabelStyle: styles.tabBarLabel, // Apply your custom style here
-                }}
-            />
-        </Tabs>
-    )
+  return (
+    <Tabs screenOptions={{
+    //   tabBarActiveTintColor: 'black', // Color for the active tab
+      tabBarInactiveTintColor: 'black', // Color for the inactive tab
+    }}>
+      <Tabs.Screen
+        name="home"
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home" size={30} color={color} /> // Use color from props
+          ),
+          headerShown: false,
+          tabBarShowLabel: false,
+        }}
+      />
+      <Tabs.Screen
+        name="activity"
+        options={{
+          headerTitle: 'Activity',
+          tabBarLabel: 'Activity',
+          tabBarIcon: ({ color }) => (
+            <Octicons name="pulse" size={30} color={color} /> // Use color from props
+          ),
+          headerShown: true,
+          tabBarShowLabel: false,
+        }}
+      />
+      <Tabs.Screen
+        name="workout"
+        options={{
+          headerTitle: 'Workout',
+          tabBarLabel: 'Workout',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="barbell-sharp" size={30} color={color} /> // Use color from props
+          ),
+          headerShown: true,
+          tabBarShowLabel: false,
+        }}
+      />
+      <Tabs.Screen
+        name="plans"
+        options={{
+          headerTitle: 'Plans',
+          tabBarLabel: 'Plans',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="reader-outline" size={30} color={color} /> // Use color from props
+          ),
+          headerShown: true,
+          tabBarShowLabel: false,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerTitle: 'Profile',
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-circle-outline" size={30} color={color} /> // Use color from props
+          ),
+          headerShown: true,
+          tabBarShowLabel: false,
+        }}
+      />
+    </Tabs>
+  )
 }
-
-
-const styles = StyleSheet.create({
-    tabBarLabel: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-      },
-    tabBarIndicator: {
-        backgroundColor: '#007bff', // Indicator color
-        height: 3, // Indicator height
-    },
-  });

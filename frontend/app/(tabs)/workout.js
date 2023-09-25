@@ -22,7 +22,7 @@ import {
 
 } from '../components/styles';
 
-const ListWelcome = () => {
+const MyPlan = () => {
     const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -77,4 +77,4 @@ const ListWelcome = () => {
     );
 }
 
-export default ListWelcome;
+export default MyPlan;

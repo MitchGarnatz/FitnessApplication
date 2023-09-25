@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { Link } from 'expo-router';
 import React from 'react';
 
-const ListPage = () => {
+const Activity = () => {
     return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', gap:10, backgroundColor: '#1F2937' }}>
             <Link style={{color: 'white'}} href="/list/1">News One</Link>
@@ -12,4 +12,4 @@ const ListPage = () => {
     )
 }
 
-export default ListPage;
+export default Activity;
