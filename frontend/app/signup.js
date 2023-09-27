@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { LinearGradient } from "expo-linear-gradient";
 import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { StatusBar, setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Formik } from 'formik';
@@ -12,6 +13,7 @@ import { CredentialsContext } from './components/CredentialsContext';
 import { baseAPIUrl } from './components/shared';
 import {
     Colors,
+    RedaptBackground,
     StyledContainer,
     InnerContainer,
     PageTitle,
@@ -112,6 +114,7 @@ const Signup = () => {
     }
 
     return (
+        <RedaptBackground>
         <KeyboardAvoidingWrapper>
             <StyledContainer>
                 <StatusBar style="light"/>
@@ -248,6 +251,7 @@ const Signup = () => {
                 </InnerContainer>
             </StyledContainer>
         </KeyboardAvoidingWrapper>
+        </RedaptBackground>
     );
 }
 

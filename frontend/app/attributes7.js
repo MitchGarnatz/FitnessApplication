@@ -11,6 +11,7 @@ import {
   Colors,
   StyledContainer,
   InnerContainer,
+  RedaptBackground,
   PageTitle,
   SubTitle,
   StyledFormArea,
@@ -80,6 +81,7 @@ const attributes7 = () => {
     };
   
     return (
+        <RedaptBackground>
       <KeyboardAvoidingWrapper>
         <StyledContainer>
           <StatusBar style="light" />
@@ -144,6 +146,7 @@ const attributes7 = () => {
           </InnerContainer>
         </StyledContainer>
       </KeyboardAvoidingWrapper>
+      </RedaptBackground>
     );
   };
   

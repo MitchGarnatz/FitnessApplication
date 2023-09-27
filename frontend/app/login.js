@@ -1,6 +1,5 @@
-// ios 231662590068-m8s5oepjh5p17vgl9p2ok70ko17alp4r.apps.googleusercontent.com
-// android 231662590068-5af7eo4abents49fotsprqtu3rhiv5nt.apps.googleusercontent.com
-// web 231662590068-56dcrnmp355a1pev0oetuqqg4pih31mg.apps.googleusercontent.com
+
+import { LinearGradient } from "expo-linear-gradient";
 
 import React, { useState, useEffect, useContext } from 'react';
 import { View, ActivityIndicator, Link, Text } from 'react-native';
@@ -20,6 +19,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 import {
     Colors,
+    RedaptBackground,
     StyledContainer,
     InnerContainer,
     PageLogo,
@@ -102,7 +102,7 @@ const Login = () => {
             const user = await response.json();
             await AsyncStorage.setItem('fitnessAppCredentials', JSON.stringify(user));
             setUserInfo(user);
-            navigation.navigate('welcome');
+            navigation.navigate('(tabs)');
         } catch (error) {
             console.log(error);
         }
@@ -130,7 +130,7 @@ const Login = () => {
                 setSubmitting(false);
             } else {
                 persistLogin({...data[0]}, message, status);
-                navigation.navigate('welcome'); 
+                navigation.navigate('(tabs)'); 
             }
             setSubmitting(false);
         })
@@ -159,6 +159,7 @@ const Login = () => {
     }
 
     return (
+        <RedaptBackground>
         <KeyboardAvoidingWrapper>
             <StyledContainer>
                 <StatusBar style="light"/>
@@ -236,6 +237,7 @@ const Login = () => {
                 </InnerContainer>
             </StyledContainer>
         </KeyboardAvoidingWrapper>
+        </RedaptBackground>
         
     );
 }

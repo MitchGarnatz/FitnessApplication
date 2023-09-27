@@ -59,8 +59,8 @@ export default () => {
       <Tabs.Screen
         name="user"
         options={{
-          headerTitle: 'Profile',
-          tabBarLabel: 'Profile',
+          headerTitle: 'User',
+          tabBarLabel: 'User',
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-circle-outline" size={30} color={color} /> // Use color from props
           ),

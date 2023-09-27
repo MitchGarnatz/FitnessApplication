@@ -7,6 +7,7 @@ import { useGlobalSearchParams } from 'expo-router';
 
 import {
   Colors,
+  RedaptBackground,
   StyledContainer,
   InnerContainer,
   PageTitle,
@@ -41,6 +42,7 @@ const attributes2 = () => {
   const navigation = useNavigation();
 
   return (
+    <RedaptBackground>
     <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="light" />
@@ -62,6 +64,7 @@ const attributes2 = () => {
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>
+    </RedaptBackground>
   );
 };
 

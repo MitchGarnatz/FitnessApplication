@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation, useGlobalSearchParams } from 'expo-router';
 import { StatusBar} from 'expo-status-bar';
 import { Text } from 'react-native';
-import { IconBg, StyledContainer, TopHalf, BottomHalf, Colors, InfoText, EmphasizeText, PageTitle, StyledButton, ButtonText, InlineGroup, TextLinkContent, TextLink} from './components/styles';
+import { IconBg, RedaptBackground, StyledContainer, TopHalf, BottomHalf, Colors, InfoText, EmphasizeText, PageTitle, StyledButton, ButtonText, InlineGroup, TextLinkContent, TextLink} from './components/styles';
 import { Octicons, Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import ResendTimer from './components/ResendTimer';
 
@@ -78,6 +79,7 @@ const Verification = () => {
     };
     
     return (
+        <RedaptBackground>
         <StyledContainer style={{alignItems: 'center',}}>
             <StatusBar style="light"/>
             <TopHalf>
@@ -109,6 +111,7 @@ const Verification = () => {
                 />
             </BottomHalf>
         </StyledContainer>
+        </RedaptBackground>
     );
 };
 

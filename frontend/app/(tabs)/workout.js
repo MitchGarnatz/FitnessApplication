@@ -1,5 +1,8 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import { Link } from 'expo-router';
+import { Octicons, Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from "expo-linear-gradient";
 import {
   StyledContainer,
   PageTitle,
@@ -9,15 +12,19 @@ import {
   TopRightContainer,
   CheckListContainer,
   CheckListItem,
+  RedaptBackground,
   PlanSubTitle,
 } from '../components/styles';
 
 const WorkoutPlan = () => {
   return (
-    <ScrollView style={{backgroundColor: '#1F2937'}}>
+    <RedaptBackground>
+    <ScrollView >
       <StyledContainer>
         <TopRightContainer>
-          {/* Add an icon here if needed */}
+            <Link style={{ color: 'white' }} href="/user/settings">
+                <Ionicons name="notifications-circle-outline" size={30}></Ionicons>
+            </Link>
         </TopRightContainer>
         <InnerContainer>
           <PageTitle>Welcome to Your Workout Plan</PageTitle>
@@ -41,6 +48,7 @@ const WorkoutPlan = () => {
         </InnerContainer>
       </StyledContainer>
     </ScrollView>
+    </RedaptBackground>
   );
 };
 

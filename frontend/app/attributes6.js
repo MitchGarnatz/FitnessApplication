@@ -9,6 +9,7 @@ import {
   Colors,
   StyledContainer,
   InnerContainer,
+  RedaptBackground,
   PageTitle,
   SubTitle,
   StyledFormArea,
@@ -45,6 +46,7 @@ const attributes6 = () => {
   const navigation = useNavigation();
 
   return (
+    <RedaptBackground>
     <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="light" />
@@ -79,6 +81,7 @@ const attributes6 = () => {
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>
+    </RedaptBackground>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useGlobalSearchParams } from 'expo-router';
 import { Octicons, Ionicons } from '@expo/vector-icons';
+import { ScrollView } from 'react-native';
 import React from 'react';
 import {
   View,
@@ -16,6 +17,7 @@ import {
   SubTitle,
   StyledButton,
   ButtonText,
+  RedaptBackground,
   Avatar,
   IconBg,
   NewLine,
@@ -31,27 +33,31 @@ const Home = () => {
   console.log(glob);
 
   return (
-    <InnerContainer>
-      <WelcomeContainer>
-        <PageTitle>Welcome to Redapt</PageTitle>
-        <SubTitle>Personalized fitness generated with AI</SubTitle>
-        <IconBg>
-          <Octicons  name="paper-airplane" size={125} color={'blue'} />
-        </IconBg>
-        
-        <NewLine/>
-        <NewLine/>
-        <NewLine/>
+    <RedaptBackground>
+      <ScrollView>
+      <InnerContainer>
+        <WelcomeContainer>
+          <PageTitle>Welcome to Redapt</PageTitle>
+          <SubTitle>Personalized fitness generated with AI</SubTitle>
+          <IconBg>
+            <Octicons  name="paper-airplane" size={125} color={'white'} />
+          </IconBg>
+          
+          <NewLine/>
+          <NewLine/>
+          <NewLine/>
 
-        <InfoText>
-          Explore the world of fitness with <EmphasizeText>personalized AI recommendations</EmphasizeText>.
-        </InfoText>
-        <NewLine/>
-        <InfoText>
-          Achieve your fitness goals like never before!
-        </InfoText>
-      </WelcomeContainer>
-    </InnerContainer>
+          <InfoText>
+            Explore the world of fitness with <EmphasizeText>personalized AI recommendations</EmphasizeText>.
+          </InfoText>
+          <NewLine/>
+          <InfoText>
+            Achieve your fitness goals like never before!
+          </InfoText>
+        </WelcomeContainer>
+      </InnerContainer>
+      </ScrollView>
+    </RedaptBackground>
   );
 };
 

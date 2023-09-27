@@ -5,7 +5,7 @@ const StackLayout = () => {
     return (
         <Stack>
             <Stack.Screen 
-                name="profile" 
+                name="index" 
                 options={{ 
                     headerShown: true, // Hide the header
                     headerTitle: 'Profile', 

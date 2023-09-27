@@ -1,7 +1,8 @@
 import { View } from 'react-native';
 import { Link } from 'expo-router';
 import React from 'react';
-
+import { LinearGradient } from "expo-linear-gradient";
+import { ScrollView } from 'react-native';
 import { Octicons, Ionicons } from '@expo/vector-icons';
 import {useEffect, useState, useContext} from 'react';
 import { StatusBar} from 'expo-status-bar';
@@ -20,7 +21,8 @@ import {
     WelcomeContainer,
     WelcomeImage,
     TopRightContainer,
-    Avatar
+    Avatar,
+    RedaptBackground
 
 } from '../../components/styles';
 
@@ -58,16 +60,15 @@ const Profile = () => {
     };
 
     return (
-        <>
+        <RedaptBackground>
+            <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <StatusBar style="light"/>
             <InnerContainer> 
                 <WelcomeContainer>   
                     <TopRightContainer>
-                        {/* <SubTitle >Settings */}
                             <Link style={{ color: 'white' }} href="/user/settings">
                                 <Ionicons name="settings-outline" size={30}></Ionicons>
                             </Link>
-                        {/* </SubTitle> */}
                     </TopRightContainer>
                     <PageTitle welcome={true}>Welcome!</PageTitle>
                     <SubTitle welcome={true}>{name || 'Jonny Boy'}</SubTitle>
@@ -81,7 +82,8 @@ const Profile = () => {
                     </StyledFormArea>
                 </WelcomeContainer>
             </InnerContainer>
-        </>
+            </ScrollView>
+        </RedaptBackground>
     );
 }
 

@@ -1,13 +1,18 @@
 import { View, Text } from 'react-native';
 import { Link } from 'expo-router';
 import React from 'react';
+import { LinearGradient } from "expo-linear-gradient";
+import { ScrollView } from 'react-native';
+import { RedaptBackground } from '../components/styles';
 
 const Activity = () => {
     return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', gap:10, backgroundColor: '#1F2937' }}>
-            <Text style={{color: 'white'}}>Activity will be viewed here.</Text>
-        </View>
-    )
-}
-
-export default Activity;
+      <RedaptBackground>
+        <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ color: 'white' }}>Activity will be viewed here.</Text>
+        </ScrollView>
+      </RedaptBackground>
+    );
+  }
+  
+  export default Activity;

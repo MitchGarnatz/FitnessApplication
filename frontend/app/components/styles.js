@@ -1,13 +1,14 @@
 import styled from 'styled-components/native';
 import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const StatusBarHeight = Constants.statusBarHeight;
 
 export const Colors = {
     primary: "#ffffff",
     secondary: "#E5E7EB",
-    tertiary: "#1F2937",
+    tertiary: "black",
     darkLight: "#9CA3AF",
     brand: "#d6b976",
     green: "#10B981",
@@ -21,7 +22,7 @@ export const StyledContainer = styled(View)`
     flex: 1;
     padding: 25px;
     padding-top: ${StatusBarHeight + 30}px;
-    background-color: ${tertiary};
+    // background-color: ${tertiary};
 `;
 
 export const InnerContainer = styled(View)`
@@ -34,7 +35,7 @@ export const WelcomeContainer = styled(InnerContainer)`
     padding: 25px;
     padding-top: 10px;
     justify-content: center;
-    background-color: ${tertiary};
+    // background-color: ${tertiary};
 `;
 
 export const PageLogo = styled(Image)`
@@ -177,7 +178,7 @@ export const TextLink = styled(TouchableOpacity)`
 `;
 
 export const TextLinkContent = styled(Text)`
-    color: ${brand};
+    color: blue;
     font-size: 15px;
 
     ${(props) => {
@@ -237,16 +238,16 @@ export const TopRightContainer = styled(View)`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 40px;
-    right: 40px;
-    background-color: ${tertiary}; /* Background color for the container */
+    top: 30px;
+    right: 30px;
+    background-color: none; /* Background color for the container */
     border: 1px solid white; /* White border for the outline */
     border-radius: 5px; /* Border radius for rounded corners */
     padding: 5px; /* Padding for some space around the icon */
 `;
 
 export const CheckListContainer = styled(View)`
-  background-color: ${Colors.tertiary};
+  background-color: none;
   border: 1px solid ${Colors.primary};
   width: 100%;
   justify-content: center;
@@ -260,8 +261,6 @@ export const CheckListItem = styled(View)`
     background-color: ${Colors.primary};
   border: 1px solid ${Colors.secondary};
   width: 95%;
-  
-
   border-radius: 5px;
   padding: 10px;
   margin-top: 5px;
@@ -275,3 +274,10 @@ export const PlanSubTitle = styled(Text)`
     font-weight: bold;
     color: black;
 `;
+
+export const RedaptBackground = styled(LinearGradient).attrs({
+    colors: ['rgba(0, 0, 0, 0.9)', 'rgb(255, 215, 50)'],
+    locations: [0.3, 0.7],
+  })`
+    flex: 1;
+  `;

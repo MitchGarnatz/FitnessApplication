@@ -7,6 +7,7 @@ import { useNavigation } from 'expo-router';
 import PickerSelect from 'react-native-picker-select'; // Import PickerSelect
 import KeyboardAvoidingWrapper from './components/KeyboardAvoidingWrapper';
 import { useGlobalSearchParams } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 import {
@@ -21,6 +22,7 @@ import {
   NewLine,
   ButtonText,
   Line,
+  RedaptBackground,
 } from './components/styles';
 
 const { brand, darkLight } = Colors;
@@ -62,6 +64,7 @@ const attributes1 = () => {
   const navigation = useNavigation();
 
   return (
+    <RedaptBackground>
     <KeyboardAvoidingWrapper>
       <StyledContainer>
         <StatusBar style="light" />
@@ -191,6 +194,7 @@ const attributes1 = () => {
         </InnerContainer>
       </StyledContainer>
     </KeyboardAvoidingWrapper>
+    </RedaptBackground>
   );
 };
 
