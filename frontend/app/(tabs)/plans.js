@@ -17,17 +17,17 @@ const Plans = () => {
         <RedaptBackground>
             <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <TopRightContainer>
-                    <Link style={{ color: 'white' }} href="/user/settings">
+                    <Link style={{ color: '#333333' }} href="/user/settings">
                         <Ionicons name="notifications-circle-outline" size={30}></Ionicons>
                     </Link>
                 </TopRightContainer>
                 
-                <Link style={{color: 'white'}} href="/list/1">Workout Plan 1: Aesthetics</Link>
-                <Link style={{color: 'white'}} href="/list/2">Workout Plan 2: Strength</Link>
-                <Link style={{color: 'white'}} href="/list/3">Workout Plan 3: Speed</Link>
-                <Link style={{color: 'white'}} href="/list/4">Workout Plan 4: Cardio & Heart</Link>
-                <Link style={{color: 'white'}} href="/list/5">Workout Plan 5: Regain Strength</Link>
-                <Link style={{color: 'white'}} href="/list/6">Workout Plan 6: Balanced</Link>
+                <Link style={{color: '#333333'}} href="/list/1">Workout Plan 1: Aesthetics</Link>
+                <Link style={{color: '#333333'}} href="/list/2">Workout Plan 2: Strength</Link>
+                <Link style={{color: '#333333'}} href="/list/3">Workout Plan 3: Speed</Link>
+                <Link style={{color: '#333333'}} href="/list/4">Workout Plan 4: Cardio & Heart</Link>
+                <Link style={{color: '#333333'}} href="/list/5">Workout Plan 5: Regain Strength</Link>
+                <Link style={{color: '#333333'}} href="/list/6">Workout Plan 6: Balanced</Link>
                 
             </ScrollView>
         </RedaptBackground>

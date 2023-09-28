@@ -1,5 +1,6 @@
 import { Stack } from "expo-router"
 import React from 'react';
+import CustomHeader from "../../components/CustomHeader";
 
 const StackLayout = () => {
     return (
@@ -8,7 +9,7 @@ const StackLayout = () => {
                 name="index" 
                 options={{ 
                     headerShown: true, // Hide the header
-                    headerTitle: 'Profile', 
+                    header: () => <CustomHeader/>, 
                 }}
             />
         </Stack>

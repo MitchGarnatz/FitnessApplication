@@ -1,6 +1,8 @@
 import { useGlobalSearchParams } from 'expo-router';
 import { Octicons, Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import {StyleSheet } from 'react-native';
 import React from 'react';
 import {
   View,
@@ -10,7 +12,7 @@ import {
 } from 'react-native';
 
 import {
-  InnerContainer,
+  ContentContainer,
   WelcomeContainer,
   WelcomeImage,
   PageTitle,
@@ -23,7 +25,9 @@ import {
   NewLine,
   InfoText,
   EmphasizeText,
+  Bubble,
 } from '../../components/styles';
+import CustomHeader from '../../components/CustomHeader';
 
 const Home = () => {
 
@@ -35,29 +39,34 @@ const Home = () => {
   return (
     <RedaptBackground>
       <ScrollView>
-      <InnerContainer>
+      <ContentContainer>
+      <StatusBar style="light" />
         <WelcomeContainer>
-          <PageTitle>Welcome to Redapt</PageTitle>
-          <SubTitle>Personalized fitness generated with AI</SubTitle>
+        <Bubble><PageTitle>Welcome to Redapt</PageTitle>
+          <SubTitle>Personalized fitness generated with AI</SubTitle></Bubble>
           <IconBg>
-            <Octicons  name="paper-airplane" size={125} color={'white'} />
+            <Octicons  name="paper-airplane" size={125} color={'grey'} />
           </IconBg>
           
           <NewLine/>
           <NewLine/>
           <NewLine/>
 
-          <InfoText>
-            Explore the world of fitness with <EmphasizeText>personalized AI recommendations</EmphasizeText>.
-          </InfoText>
+          <Bubble>
+            <InfoText>
+              Explore the world of fitness with <EmphasizeText>personalized AI recommendations</EmphasizeText>.
+            </InfoText>
+          </Bubble>
           <NewLine/>
-          <InfoText>
-            Achieve your fitness goals like never before!
-          </InfoText>
+          <Bubble>
+            <InfoText >
+              Achieve your fitness goals like never before!
+            </InfoText>
+          </Bubble>
         </WelcomeContainer>
-      </InnerContainer>
+      </ContentContainer>
       </ScrollView>
-    </RedaptBackground>
+      </RedaptBackground>
   );
 };
 

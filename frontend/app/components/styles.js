@@ -2,13 +2,14 @@ import styled from 'styled-components/native';
 import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Platform } from 'react-native';
 
 const StatusBarHeight = Constants.statusBarHeight;
 
 export const Colors = {
     primary: "#ffffff",
     secondary: "#E5E7EB",
-    tertiary: "black",
+    tertiary: "#333333",
     darkLight: "#9CA3AF",
     brand: "#d6b976",
     green: "#10B981",
@@ -26,6 +27,12 @@ export const StyledContainer = styled(View)`
 `;
 
 export const InnerContainer = styled(View)`
+    flex: 1;
+    width: 100%;
+    align-items: center;
+`;
+
+export const ContentContainer = styled(View)`
     flex: 1;
     width: 100%;
     align-items: center;
@@ -59,12 +66,10 @@ export const WelcomeImage = styled(Image)`
 `;
 
 export const PageTitle = styled(Text)`
-    font-size: 30px;
+    font-size: 35px;
     text-align: center;
     font-weight: bold;
     color: ${brand};
-    padding-top: 30px;
-    padding-bottom: 10px;
 
     ${(props) => props.welcome && `
         font-size: 35px;  
@@ -74,9 +79,12 @@ export const PageTitle = styled(Text)`
 export const SubTitle = styled(Text)`
     font-size: 18px;
     margin-bottom: 20px;
+    padding: 5px;
+    padding-top: 25px;
+    text-align: center;
     letter-spacing: 1px;
     font-weight: bold;
-    color: white;
+    color: #333333;
 
     ${(props) => props.welcome && `
         margin-bottom: 5px;
@@ -205,15 +213,16 @@ export const BottomHalf = styled(TopHalf)`
 export const IconBg = styled(View)`
     width: 250px;
     height: 250px;
-    background-color: ${Colors.lightGreen};
+    background-color: ${Colors.secondary};
     border-radius: 250px;
     justify-content: center;
     align-items: center;
+    margin-top: 25px;
 `;
 
 export const InfoText = styled(Text)`
     text-align: center;
-    color: ${Colors.primary};
+    color: #333333;
     font-size: 15px;
 `;
 
@@ -241,7 +250,7 @@ export const TopRightContainer = styled(View)`
     top: 30px;
     right: 30px;
     background-color: none; /* Background color for the container */
-    border: 1px solid white; /* White border for the outline */
+    border: 1px solid #333333; /* White border for the outline */
     border-radius: 5px; /* Border radius for rounded corners */
     padding: 5px; /* Padding for some space around the icon */
 `;
@@ -267,17 +276,39 @@ export const CheckListItem = styled(View)`
   margin-bottom: 5px;
 `;
 
+export const Bubble = styled(View)`
+  background-color: white;
+  width: 95%;
+  border-radius: 5px;
+  padding: 10px;
+  
+  /* Add shadow properties based on platform */
+  ${Platform.select({
+    ios: {
+      shadowColor: 'rgba(0, 0, 0, 0.3)',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.5,
+      shadowRadius: 4,
+    },
+    android: {
+      elevation: 5, // Elevation for Android shadow
+    },
+  })}
+`;
+
 export const PlanSubTitle = styled(Text)`
     font-size: 18px;
     margin-bottom: 20px;
     letter-spacing: 1px;
     font-weight: bold;
-    color: black;
+    color: #333333;
 `;
 
 export const RedaptBackground = styled(LinearGradient).attrs({
-    colors: ['rgba(0, 0, 0, 0.9)', 'rgb(255, 215, 50)'],
-    locations: [0.3, 0.7],
+    colors: ['white', 'light-grey', 'white'],
+    start: [0, 0],
+    end: [1,0]
   })`
     flex: 1;
+    padding-top: 20px;
   `;

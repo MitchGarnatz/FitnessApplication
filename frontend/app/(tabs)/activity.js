@@ -9,7 +9,7 @@ const Activity = () => {
     return (
       <RedaptBackground>
         <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: 'white' }}>Activity will be viewed here.</Text>
+          <Text style={{ color: '#333333' }}>Activity will be viewed here.</Text>
         </ScrollView>
       </RedaptBackground>
     );

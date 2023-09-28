@@ -22,7 +22,7 @@ const WorkoutPlan = () => {
     <ScrollView >
       <StyledContainer>
         <TopRightContainer>
-            <Link style={{ color: 'white' }} href="/user/settings">
+            <Link style={{ color: 'black' }} href="/user/settings">
                 <Ionicons name="notifications-circle-outline" size={30}></Ionicons>
             </Link>
         </TopRightContainer>

@@ -66,9 +66,9 @@ const Profile = () => {
             <InnerContainer> 
                 <WelcomeContainer>   
                     <TopRightContainer>
-                            <Link style={{ color: 'white' }} href="/user/settings">
-                                <Ionicons name="settings-outline" size={30}></Ionicons>
-                            </Link>
+                        <Link style={{ color: 'black' }} href="/user/settings">
+                            <Ionicons name="settings-outline" size={30}></Ionicons>
+                        </Link>
                     </TopRightContainer>
                     <PageTitle welcome={true}>Welcome!</PageTitle>
                     <SubTitle welcome={true}>{name || 'Jonny Boy'}</SubTitle>

@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { StyleSheet } from 'react-native';
 import React from 'react';
 import { Octicons, Ionicons } from '@expo/vector-icons';
+import CustomHeader from "../components/CustomHeader";
 
 export default () => {
   return (
@@ -30,6 +31,7 @@ export default () => {
           ),
           headerShown: true,
           tabBarShowLabel: false,
+          header: () => <CustomHeader/>, 
         }}
       />
       <Tabs.Screen
@@ -42,6 +44,7 @@ export default () => {
           ),
           headerShown: true,
           tabBarShowLabel: false,
+          header: () => <CustomHeader/>, 
         }}
       />
       <Tabs.Screen
@@ -54,6 +57,7 @@ export default () => {
           ),
           headerShown: true,
           tabBarShowLabel: false,
+          header: () => <CustomHeader/>, 
         }}
       />
       <Tabs.Screen
@@ -65,6 +69,7 @@ export default () => {
             <Ionicons name="person-circle-outline" size={30} color={color} /> // Use color from props
           ),
           headerShown: false,
+          header: () => <CustomHeader/>, 
           tabBarShowLabel: false,
         }}
       />
